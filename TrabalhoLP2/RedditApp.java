@@ -11,7 +11,7 @@ public class RedditApp {
 
     public void iniciarDados(){
         sistemaUsuario.carregarUsuarios("TrabalhoLP2/usuarios.txt");
-        sistemaComunidades.carregarPost("TrabalhoLP2/post.txt");
+        sistemaComunidades.carregarPost("TrabalhoLP2/post.json");
         sistemaPostseComent.carregarComentarios("TrabalhoLP2/comentarios.txt");
         menuLogin();
 //        menuPrincipal();
@@ -20,14 +20,13 @@ public class RedditApp {
     {
         for (Usuario u : sistemaUsuario.getUsuarios());
 
-
-
     }
-    private void menuLogin(){
+    private void menuLogin() {
         Scanner sc = new Scanner(System.in);
 
         int opcao;
 
+        Usuario Atual = null;
         do {
             System.out.println("\n--- Bem-vindo ao RedditApp ---");
             System.out.println("1 - Login");
@@ -39,15 +38,15 @@ public class RedditApp {
 
             switch (opcao) {
                 case 1:
-                   sistemaUsuario.login();
+                    Atual = sistemaUsuario.login();
                     break;
                 case 2:
                     sistemaUsuario.criarConta();
                     break;
             }
-        } while (  == null && opcao != 0);
+        } while (!(Atual != null && Atual.getLogado()) && opcao != 0);
 
-        if (usuarioLogado == null) {
+        if ( opcao == 0){
             System.out.println("Encerrando o programa...");
             System.exit(0);
         }

@@ -9,7 +9,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
-public class SistemaComunidade{
+public class SistemaComunidade {
     private static Scanner scanner = new Scanner(System.in);
 
     List<Comunidade> comunidades = new ArrayList<>();
@@ -23,8 +23,8 @@ public class SistemaComunidade{
         comunidades.sort(Comparator.comparing(c -> c.getCategoria().name()));
     }
 
-    public void menuComunidades() {
-        System.out.printf("Login feito com sucessso, Bem vindo %s escolha a comunidade que você deseja entrar." );
+    public void menuComunidades(Usuario usuario) {
+        System.out.printf("Login feito com sucessso, Bem vindo %s escolha a comunidade que você deseja entrar.", usuario.getNome());
         System.out.println("=============ESCOLHA UMA COMUNIDADE PARA ENTRAR=================");
         for (int i = 0; i < comunidades.size(); i++) {
             // Após o sort faço um print do resumo de cada Comunidade em ordem afalbetica provando que o sort funcionou
@@ -35,7 +35,7 @@ public class SistemaComunidade{
         System.out.println("==============================================================\n");
     }
 
-    public void carregarPost(String nomeDoArquivo) {
+    public void carregarPost(String nomeDoArquivo) { #ARRUMAR
         System.out.println("Iniciando carregamento de posts do arquivo: ");
         Path caminhoDoArquivo = Paths.get(nomeDoArquivo);
 
@@ -109,7 +109,7 @@ public class SistemaComunidade{
         System.out.println("Para sair da comunidade escreva 'sair' ");
         String acao = scanner.nextLine();
         //Utilização do EQUALS
-        if (acao.toLowerCase().equals("adicionar")){
+        if (acao.equalsIgnoreCase("adicionar")){
             System.out.print("Digite o título do post: ");
             String titulo = scanner.nextLine();
 
@@ -120,10 +120,10 @@ public class SistemaComunidade{
             
             comunidadeEscolhida.exibir();
         }
-        else if(acao.toLowerCase().equals("ver")){
+        else if(acao.equalsIgnoreCase("ver")){
             comunidadeEscolhida.exibir();
         }
-        else if(acao.toLowerCase().equals("sair")){
+        else if(acao.equalsIgnoreCase("sair")){
         	menuComunidades();
             return;
         }

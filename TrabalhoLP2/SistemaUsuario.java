@@ -8,25 +8,18 @@ public class SistemaUsuario  {
     private static Scanner scanner = new Scanner(System.in);
     private List<Usuario> usuarios = new ArrayList<>();
 
-
-
-
     public List<Usuario> getUsuarios(){
         return usuarios;
     }
-
-
 
     public Usuario login(){
         String entradaLogin = scanner.nextLine().trim();
         for (Usuario u : usuarios) {
             if (u.getNome().equalsIgnoreCase(entradaLogin)) {
-
                 System.out.println("Login realizado com sucesso");
                     u.setLogado(true);
                     return u;
             }
-
         }
             {
             System.out.println("Este usuário não consta na nossa lista de usuários cadastrados. Crie sua conta.");
