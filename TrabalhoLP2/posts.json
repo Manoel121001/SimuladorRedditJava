@@ -1,0 +1,10 @@
+[
+  {
+    "comunidade": "JAVA",
+    "id": 1,
+    "usuarioId": 1,
+    "titulo": "Meu primeiro post",
+    "conteudo": "Texto longo aqui...",
+    "comentarios": [1, 2]
+  }
+]

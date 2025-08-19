@@ -8,7 +8,7 @@ public class SistemaUsuario  {
     private static Scanner scanner = new Scanner(System.in);
     private List<Usuario> usuarios = new ArrayList<>();
 
-    public List<Usuario> getUsuarios(){
+    public List <Usuario> getUsuarios(){
         return usuarios;
     }
 

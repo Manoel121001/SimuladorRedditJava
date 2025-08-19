@@ -10,6 +10,7 @@ public class Comunidade {
     private List<Post> posts;
 
 
+
     public Comunidade (CategoriasComunidade categoria){
         this.categoria = categoria;
         this.posts = new ArrayList<>();
@@ -19,8 +20,8 @@ public class Comunidade {
         return categoria;
     }
 
-    public void criarEAdicionarPost(String autor, String titulo, String conteudo) {
-        Post novoPost = new Post(autor, titulo, conteudo, proximoIdPost++);
+    public void criarEAdicionarPost(Usuario usuario, String titulo, String conteudo) {
+        Post novoPost = new Post(usuario.getNome(), titulo, conteudo, proximoIdPost++);
         posts.add(novoPost);
     }
 

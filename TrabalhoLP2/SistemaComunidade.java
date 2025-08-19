@@ -13,6 +13,8 @@ public class SistemaComunidade {
     private static Scanner scanner = new Scanner(System.in);
 
     List<Comunidade> comunidades = new ArrayList<>();
+    SistemaUsuario SistemaUsu = new SistemaUsuario();
+    List <Usuario> listaUsuarios =  SistemaUsu.getUsuarios();
 
     {
         //Inicio a lista de Comunidades
@@ -35,56 +37,65 @@ public class SistemaComunidade {
         System.out.println("==============================================================\n");
     }
 
-    public void carregarPost(String nomeDoArquivo) { #ARRUMAR
+    public void carregarPost(String nomeDoArquivo) { //#ARRUMAR
         System.out.println("Iniciando carregamento de posts do arquivo: ");
         Path caminhoDoArquivo = Paths.get(nomeDoArquivo);
 
-        // Usamos try-with-resources para garantir que o leitor de arquivo seja fechado automaticamente.
-        try (BufferedReader leitor = Files.newBufferedReader(caminhoDoArquivo)) {
-            String linha;
-            while ((linha = leitor.readLine()) != null) {
-                // Primeira linha: Categoria
-                String categoriaNome = linha.trim();
-                Comunidade comunidadeAlvo = encontrarComunidadePorNome(categoriaNome);
-
-                if (comunidadeAlvo == null) {
-                    System.err.println("AVISO: Comunidade '" + categoriaNome + "' não encontrada. Pulando este post.");
-                    // Pula as linhas do post inválido até encontrar o delimitador
-                    while ((linha = leitor.readLine()) != null && !linha.equals("---FIMPOST---")) {}
-                    continue;
-                }
-
-
-                // Segunda linha Autor
-                String autor = leitor.readLine();
-                // Terceira linha Título
-                String titulo = leitor.readLine();
-
-                // Lê o conteúdo até encontrar o delimitador
-                StringBuilder conteudoBuilder = new StringBuilder();
-                while ((linha = leitor.readLine()) != null && !linha.equals("---FIMPOST---")) {
-                    conteudoBuilder.append(linha).append("\n"); // Adiciona a linha e uma quebra de linha
-                }
-
-                // Cria o post e adiciona na comunidade encontrada
-                comunidadeAlvo.criarEAdicionarPost(autor, titulo, conteudoBuilder.toString().trim());
-
-            }
-            System.out.println("Carregamento de posts concluído com sucesso!");
-        } catch (IOException e) {
-            System.err.println("ERRO AO LER O ARQUIVO: Não foi possível encontrar ou ler o arquivo '" + nomeDoArquivo + "'. Verifique se ele está na pasta raiz do projeto.");
-             e.printStackTrace();
-        }
     }
-    
-    private Comunidade encontrarComunidadePorNome(String nome) {
-        for (Comunidade comunidade : this.comunidades) {
-            if (comunidade.getCategoria().name().equalsIgnoreCase(nome)) {
-                return comunidade;
-            }
-        }
-        return null;
-    }
+//        // Usamos try-with-resources para garantir que o leitor de arquivo seja fechado automaticamente.
+//        try (BufferedReader leitor = Files.newBufferedReader(caminhoDoArquivo)) {
+//            String linha;
+//            while ((linha = leitor.readLine()) != null) {
+//                // Primeira linha: Categoria
+//                String categoriaNome = linha.trim();
+//                Comunidade comunidadeAlvo = encontrarComunidadePorNome(categoriaNome);
+//
+//                if (comunidadeAlvo == null) {
+//                    System.err.println("AVISO: Comunidade '" + categoriaNome + "' não encontrada. Pulando este post.");
+//                    // Pula as linhas do post inválido até encontrar o delimitador
+//                    while ((linha = leitor.readLine()) != null && !linha.equals("---FIMPOST---")) {
+//                        // Não faz nada enquanto está dentro desse while
+//                    }
+//                    continue;
+//                }
+//
+//
+//                // Segunda linha Autor
+//                String autor = leitor.readLine();
+//                for (Usuario u : listaUsuarios) {
+//                    if (u.getNome().equalsIgnoreCase(autor)) {
+//
+//                    }
+//                }
+//
+//                // Terceira linha Título
+//                String titulo = leitor.readLine();
+//
+//                // Lê o conteúdo até encontrar o delimitador
+//                StringBuilder conteudoBuilder = new StringBuilder();
+//                while ((linha = leitor.readLine()) != null && !linha.equals("---FIMPOST---")) {
+//                    conteudoBuilder.append(linha).append("\n"); // Adiciona a linha e uma quebra de linha
+//                }
+//
+//                // Cria o post e adiciona na comunidade encontrada
+//                comunidadeAlvo.criarEAdicionarPost(xx, titulo, conteudoBuilder.toString().trim());
+//
+//            }
+//            System.out.println("Carregamento de posts concluído com sucesso!");
+//        } catch (IOException e) {
+//            System.err.println("ERRO AO LER O ARQUIVO: Não foi possível encontrar ou ler o arquivo '" + nomeDoArquivo + "'. Verifique se ele está na pasta raiz do projeto.");
+//             e.printStackTrace();
+//        }
+//    }
+//
+//    private Comunidade encontrarComunidadePorNome(String nome) {
+//        for (Comunidade comunidade : this.comunidades) {
+//            if (comunidade.getCategoria().name().equalsIgnoreCase(nome)) {
+//                return comunidade;
+//            }
+//        }
+//        return null;
+//    }
 
     public Comunidade getComunidadePorIndice(int indice) {
         if (indice >= 1 && indice <= comunidades.size()) {
@@ -124,7 +135,7 @@ public class SistemaComunidade {
             comunidadeEscolhida.exibir();
         }
         else if(acao.equalsIgnoreCase("sair")){
-        	menuComunidades();
+        	menuComunidades(usuario);
             return;
         }
     }
